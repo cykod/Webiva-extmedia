@@ -1,0 +1,8 @@
+<div class='admin_content'>
+<% cms_form_for :flickr_set, @flickr_set, :html => {:class => 'admin_form' } do |f| -%>
+  <%= f.text_field :name %>
+  <%= f.text_field :user_id, :description => 'Flickr User Id' %>
+  <%= f.submit_tag 'Create' %>
+<% end -%>
+
+</div>

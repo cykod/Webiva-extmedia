@@ -1,0 +1,5 @@
+<div class='cms_form'>
+  <% paragraph_options_form_for "Social Network Links",:share_links ,@options do |f| -%>
+    <%= f.check_boxes :networks, Extmedia::PageRenderer.social_network_link_options,:separator => '<br/>',:vertical => true %>
+  <% end -%>
+</div>

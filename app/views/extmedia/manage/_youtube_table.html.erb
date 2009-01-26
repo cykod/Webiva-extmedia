@@ -1,0 +1,18 @@
+<% active_table_for :youtube_table, 
+                    @active_table_output, 
+                    :refresh_url => url_for(:action => 'display_youtube_table',:path => @youtube_gallery_id),
+                    :actions => [ ['Delete','delete','Delete the selected Youtube Videos?' ]] do |t| -%>
+<tr <%= highlight_row 'video', t.id %> >
+  <td valign='center'><%= entry_checkbox 'video',t.id %></td>
+  <td valign='center'>
+    <% if t.image_url %>
+    <a href='<%= url_for(:action => 'youtube_video', :path => [ @youtube_gallery_id,t.id] ) %>'><img src='<%= t.image_url %>'/></a>
+    <% end -%>
+  </td>
+  <td valign='center'><%= link_to h(t.title), :action => 'youtube_video', :path => [ @youtube_gallery_id,t.id ] %></td>
+  <td valign='center'><%= t.posted_on.strftime(DEFAULT_DATE_FORMAT.t) if t.posted_on %></td>
+  <td valign='center'><%= t.display? ? 'Yes' : 'No' %></td>
+  
+</tr>
+
+<% end -%>

@@ -1,0 +1,8 @@
+<div class='cms_form'>
+  <% paragraph_options_form_for "Youtube Video Gallery Options",:youtube_gallery ,@options do |f| -%>
+    <%= f.select :youtube_gallery_id, @galleries %>
+    <%= f.text_field :category, :description => 'Only display videos with this category' %>
+    <%= f.select :max_videos, @max_options %>
+    <%= f.select :detail_page_id, @pages %>
+  <% end -%>
+</div>

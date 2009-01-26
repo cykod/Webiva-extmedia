@@ -1,0 +1,7 @@
+<div class='admin_content'>
+<% cms_form_for :gallery, @gallery, :html => {:class => 'admin_form' } do |f| -%>
+  <%= f.text_field :name %>
+  <%= f.submit_tag 'Create' %>
+<% end -%>
+
+</div>

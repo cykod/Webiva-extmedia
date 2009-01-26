@@ -1,0 +1,10 @@
+<div class='admin_table'>
+<% cms_form_for :gallery, @gallery, :html => {:class => 'admin_form' } do |f| -%>
+  <%= f.text_field :title, :required => true %>
+  <%= f.date_field :posted_on, :label => 'Date', :required => true %>
+  <%= f.text_field :image_url, :label => 'Thumbnail URL', :required => true %>
+  <%= f.text_field :gallery_id, :label => 'Gallery ID Number', :required => true %>
+  <%= f.radio_buttons :display, [['Yes',true],['No',false]], :label => 'Display',:description => 'Display this Gallery' %>
+  <%= f.submit_tag @gallery.id ? 'Edit' : 'Create' %>
+<% end -%> 
+</div>

@@ -1,0 +1,18 @@
+<script>
+  <%= active_table_javascript %>
+</script>
+
+
+<% action_panel do |p| -%>
+  <%= p.link "Add Flickr Gallery",:icon => "add.gif", :action => 'flickr_gallery', :path => @flickr_set_id %>
+  <%= p.link("Configure Flickr Set",:icon => "configure.gif", :controller => '/extmedia/admin', :action => 'flickr', :path => @flickr_set_id) if myself.has_role?('extmedia_edit') %>
+  <%= p.link "Delete this Flickr Set", :icon => 'delete.gif', :action => 'delete_flickr_set', :path => @flickr_set_id, :right => true %>
+<% end -%>
+<hr/>
+<div class='admin_content'>
+
+<div id='flickr_table'>
+  <%= render :partial => 'flickr_table' %>
+</div>
+
+</div>

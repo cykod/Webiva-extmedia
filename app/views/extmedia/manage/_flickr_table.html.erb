@@ -1,0 +1,13 @@
+<% active_table_for :flickr_table, 
+                    @active_table_output, 
+                    :refresh_url => url_for(:action => 'display_flickr_table',:path => @flickr_set_id),
+                    :actions => [ ['Delete','delete','Delete the selected Flickr Galleries?' ]] do |t| -%>
+<tr <%= highlight_row 'gallery', t.id %> >
+  <td><%= entry_checkbox 'gallery',t.id %></td>
+  <td><%= link_to h(t.title), :action => 'flickr_gallery', :path => [ @flickr_set_id,t.id ] %></td>
+  <td><%= t.posted_on.strftime(DEFAULT_DATE_FORMAT.t) %></td>
+  <td><%= t.display? ? 'Yes' : 'No' %></td>
+  
+</tr>
+
+<% end -%>

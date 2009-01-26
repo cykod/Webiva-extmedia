@@ -1,0 +1,12 @@
+<div class='admin_content'>
+<% cms_form_for :video, @video, :html => {:class => 'admin_form' } do |f| -%>
+  <%= f.date_field :posted_on, :label => 'Date' %>
+  <%= f.text_field :video_link, :size=> 80 , :description => 'Full URL of the YouTube Video' %>
+  <%= f.text_field :title, :description => 'Video title, leave blank to use YouTube title', :size=> 80  %>
+  <%= f.text_area :description, :description => 'Video Description, leave blank to use YouTube Description', :rows => 8, :cols=> 80  %>
+  <%= f.text_field :category, :description => 'Entering a category allows control of which videos appear in a video gallery paragraph' %>
+  <%= f.filemanager_image :thumbnail_file_id, :description => "Optional Thumbnail. User will have to click on thumbnail to play the video.\nImage will be displayed at the same size as the video." %>
+  <%= f.radio_buttons :display, [['Yes',true],['No',false]], :label => 'Display',:description => 'Display this Video' %>
+  <%= f.submit_tag @video.id ? 'Edit' : 'Add' %>
+<% end -%>
+</div>

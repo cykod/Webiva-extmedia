@@ -1,0 +1,11 @@
+<div class='cms_form'>
+  <% paragraph_options_form_for "Youtube Video Options",:youtube_video ,@options do |f| -%>
+    <%= f.text_field :width, :size=> 30 %>
+    <%= f.text_field :height, :size=> 30 %>
+    <%= f.text_field :video_link, :size=> 80 , :description => 'Full URL of the YouTube Video' %>
+    <%= f.text_field :title, :description => 'Video title, leave blank to use YouTube title', :size=> 80  %>
+    <%= f.text_area :description, :description => 'Video Description, leave blank to use YouTube Description', :rows => 8, :cols=> 80  %>
+    <%= f.filemanager_image :thumbnail_file_id, :description => "Optional Thumbnail. User will have to click on thumbnail to play the video.\nImage will be displayed at the same size as the video." %>
+    <%= f.radio_buttons :align, [['Left','left'],['Center','center'],['Right','right']], :description => 'Horizontal Video Alignment' %>
+  <% end -%>
+</div>

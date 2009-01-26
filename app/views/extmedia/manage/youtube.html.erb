@@ -1,0 +1,17 @@
+<script>
+  <%= active_table_javascript %>
+</script>
+
+<% action_panel do |p| -%>
+  <%= p.link "Add YouTube Video",:icon => "add.gif", :action => 'youtube_video', :path => [ @youtube_gallery_id ] %>
+  <%= p.link("Configure YouTube Gallery",:icon => "configure.gif", :controller => '/extmedia/admin', :action => 'youtube', :path => @youtube_gallery_id) if myself.has_role?('extmedia_edit') %>
+  <%= p.link "Delete this YouTube Gallery", :icon => 'delete.gif', :action => 'delete_youtube_gallery', :path => @youtube_gallery_id, :right => true %>
+<% end -%>
+<hr/>
+<div class='admin_content'>
+
+<div id='youtube_table'>
+  <%= render :partial => 'youtube_table' %>
+</div>
+
+</div>
