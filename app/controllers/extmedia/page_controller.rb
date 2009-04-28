@@ -22,7 +22,9 @@ class Extmedia::PageController < ParagraphController
   end
   
   class YoutubeGalleryOptions < HashModel
-    default_options :youtube_gallery_id => nil, :category => nil, :max_videos => 0, :detail_page_id => nil
+    default_options :youtube_gallery_id => nil, :category => nil, :max_videos => 0, :detail_page_id => nil, :autoplay => false
+    
+    boolean_options :autoplay
     
     integer_options :youtube_gallery_id, :max_videos, :detail_page_id
     validates_numericality_of :youtube_gallery_id
