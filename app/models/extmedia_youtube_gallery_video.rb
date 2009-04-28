@@ -8,6 +8,8 @@ class ExtmediaYoutubeGalleryVideo < DomainModel
   validates_format_of :video_link, :with => /^http\:\/\/(www|)\.youtube\.com\/watch\?v\=(.*)$/i,
                       :message => 'is not a valid youtube link'
   
+  attr_accessor :autoplay
+  
   def youtube_rss(video_id)
     "http://www.youtube.com/api2_rest?method=youtube.videos.get_details&dev_id=#{youtube_dev_id}&video_id=#{video_id}"
   end
