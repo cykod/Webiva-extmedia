@@ -59,6 +59,8 @@ class Extmedia::PageRenderer < ParagraphRenderer
           else
             autoplay='0'
           end
+          autoplay='1' if data[:video].autoplay
+            
           <<-PLAYER_CODE
           <div id='video_player_#{paragraph.id}' style='width:#{width}px;height:#{height}px;'>#{img_src}</div>
           <script type="text/javascript">

@@ -7,5 +7,6 @@
     <%= f.text_area :description, :description => 'Video Description, leave blank to use YouTube Description', :rows => 8, :cols=> 80  %>
     <%= f.filemanager_image :thumbnail_file_id, :description => "Optional Thumbnail. User will have to click on thumbnail to play the video.\nImage will be displayed at the same size as the video." %>
     <%= f.radio_buttons :align, [['Left','left'],['Center','center'],['Right','right']], :description => 'Horizontal Video Alignment' %>
+    <%= f.radio_buttons :autoplay, [['No',false],['Yes',true]] %>
   <% end -%>
 </div>

@@ -53,9 +53,11 @@ class Extmedia::PageController < ParagraphController
   end
   
   class YoutubeVideoOptions < HashModel
-    default_options :title => nil,:image_url => nil,:video_id => nil,:description => nil,:video_link => nil,:url => nil,:thumbnail_file_id => nil, :width => 400, :height => 300, :align => 'center'
+    default_options :title => nil,:image_url => nil,:video_id => nil,:description => nil,:video_link => nil,:url => nil,:thumbnail_file_id => nil, :width => 400, :height => 300, :align => 'center', :autoplay => false
     
     integer_options :thumbnail_file_id, :width, :height
+    
+    boolean_options :autoplay
     
     validates_format_of :video_link, :with => /^http\:\/\/(www|)\.youtube\.com\/watch\?v\=(.*)$/i,
                           :message => 'is not a valid youtube link'
