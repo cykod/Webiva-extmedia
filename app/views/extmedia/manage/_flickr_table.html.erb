@@ -5,7 +5,7 @@
 <tr <%= highlight_row 'gallery', t.id %> >
   <td><%= entry_checkbox 'gallery',t.id %></td>
   <td><%= link_to h(t.title), :action => 'flickr_gallery', :path => [ @flickr_set_id,t.id ] %></td>
-  <td><%= t.posted_on.strftime(DEFAULT_DATE_FORMAT.t) %></td>
+  <td><%= t.posted_on.strftime(DEFAULT_DATE_FORMAT.t) if t.posted_on %></td>
   <td><%= t.display? ? 'Yes' : 'No' %></td>
   
 </tr>
