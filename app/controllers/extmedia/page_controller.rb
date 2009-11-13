@@ -65,29 +65,25 @@ class Extmedia::PageController < ParagraphController
                           :message => 'is not a valid youtube link'
       
     def youtube_rss(vid)
-      "http://www.youtube.com/api2_rest?method=youtube.videos.get_details&dev_id=#{youtube_dev_id}&video_id=#{vid}"
+      "http://gdata.youtube.com/feeds/api/videos/#{vid}"
     end
     
-    def youtube_dev_id
-      @mod = SiteModule.get_module('extmedia')
-      @mod.options[:youtube_developer_id]
-    end
 
     def validate
-        vid_id = self.video_link.to_s.gsub(/^http\:\/\/(www|)\.youtube\.com\/watch\?v\=(.*)$/i,'\2').to_s.strip
-        vid_url = URI.parse(youtube_rss(vid_id))
-        res = Net::HTTP.get(vid_url)
-        doc =  Hpricot::XML(res)
-        vid = doc.at('video_details')
-        
-        if vid
-          self.title = doc.at('title').inner_html if self.title.blank?
-          self.image_url = doc.at('thumbnail_url').inner_html
-          self.description = doc.at('description').inner_html if self.description.blank?
-          self.video_id = vid_id
-        else 
-          self.errors.add(:video_link,' is not returning a valid video, please verify URL and YouTube Configuration')
-        end
+      vid_id = self.video_link.to_s.gsub(/^http\:\/\/(www|)\.youtube\.com\/watch\?v\=(.*)$/i,'\2').to_s.strip
+      vid_url = URI.parse(youtube_rss(vid_id))
+      res = Net::HTTP.get(vid_url)
+      doc =  Hpricot::XML(res)
+      vid = doc.at('entry')
+      
+      if vid
+        self.title = doc.at('media:title').inner_html if self.title.blank?
+        self.image_url = doc.at('media:thumbnail').attributes['url'] if self.image_url.blank?
+        self.video_id = vid_id
+        self.description = doc.at('media:description').inner_html if self.description.blank?
+      else 
+        self.errors.add(:video_link,' is not returning a valid video, please verify URL and YouTube Configuration')
+      end
     end    
   end
   
