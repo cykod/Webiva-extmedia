@@ -164,13 +164,13 @@ class Extmedia::PageRenderer < ParagraphRenderer
     @gallery= ExtmediaYoutubeGallery.find_by_id(options.youtube_gallery_id) 
     if @gallery
       @video = params[:video_id] ? @gallery.videos.find_by_id_and_display(params[:video_id],1) : nil
-      conditions = ['1']
+      conditions = ['display=1']
       if !options.category.blank?
         conditions[0] += " AND category=?"
         conditions << options.category
       end
-      @video ||= @gallery.videos.find(:first,:conditions => 'display=1',:order => 'posted_on DESC, id DESC', :conditions => conditions)
-      videos = @gallery.videos.find(:all,:conditions => 'display=1',:order => 'posted_on DESC, id DESC', :conditions => conditions, :limit => options.max_videos.to_i > 0 ? options.max_videos.to_i : nil)
+      @video ||= @gallery.videos.find(:first,:order => 'posted_on DESC, id DESC', :conditions => conditions)
+      videos = @gallery.videos.find(:all,:order => 'posted_on DESC, id DESC', :conditions => conditions, :limit => options.max_videos.to_i > 0 ? options.max_videos.to_i : nil)
       if @video
       
         href_path = options.detail_page_id.to_i > 0 ? SiteNode.get_node_path(options.detail_page_id) : page_path
