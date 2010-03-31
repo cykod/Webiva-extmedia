@@ -11,15 +11,9 @@ class ExtmediaYoutubeGalleryVideo < DomainModel
   attr_accessor :autoplay
   
   def youtube_rss(video_id)
-#    "http://www.youtube.com/api2_rest?method=youtube.videos.get_details&dev_id=#{youtube_dev_id}&video_id=#{video_id}"
     "http://gdata.youtube.com/feeds/api/videos/#{video_id}"
   end
   
-  def youtube_dev_id
-    @mod = SiteModule.get_module('extmedia')
-    @mod.options[:youtube_developer_id]
-  end
-
   def validate
     video_id = video_link.gsub(/^http\:\/\/(www|)\.youtube\.com\/watch\?v\=(.*)$/i,'\2').to_s.strip
     vid_url = URI.parse(youtube_rss(video_id))

@@ -2,7 +2,7 @@ class Extmedia::AdminController < ModuleController
 
 
   component_info 'Extmedia', :description => 'External Media (Youtube,Flickr) Integration', 
-                              :access => :private 
+                              :access => :public
 
   register_permission_category :extmedia, "External Media" ,"External Media Permissions"
   
@@ -34,23 +34,23 @@ class Extmedia::AdminController < ModuleController
 
   public
   
-  def options
-    cms_page_path [ 'Options', 'Modules' ], 'External Media Options'
-  
-    @options = ExtmediaOptions.new(params[:options] || @mod.options)
-    
-    if request.post? && params[:options] && @options.valid?
-      @mod.update_attributes(:options => @options.to_h)
-      flash[:notice] = 'Updated External Media Options'.t
-      redirect_to :controller => '/modules'
-    end
-  
-  end
-  
-  class ExtmediaOptions < HashModel
-    default_options :youtube_developer_id => nil
-    
-  end
+#  def options
+#    cms_page_path [ 'Options', 'Modules' ], 'External Media Options'
+#  
+#    @options = ExtmediaOptions.new(params[:options] || @mod.options)
+#    
+#    if request.post? && params[:options] && @options.valid?
+#      @mod.update_attributes(:options => @options.to_h)
+#      flash[:notice] = 'Updated External Media Options'.t
+#      redirect_to :controller => '/modules'
+#    end
+#  
+#  end
+#  
+#  class ExtmediaOptions < HashModel
+#    default_options :youtube_developer_id => nil
+#    
+#  end
     
   
   def youtube
