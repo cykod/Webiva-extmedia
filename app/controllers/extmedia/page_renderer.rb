@@ -79,10 +79,8 @@ class Extmedia::PageRenderer < ParagraphRenderer
       end  
   end
   
-  def youtube_gallery_feature(feature,data)
-    
-    parser_context = FeatureContext.new do |c|
-
+  def youtube_gallery_feature(data)
+    webiva_feature('youtube_gallery') do |c|    
       define_youtube_player_tag(c,data)
       
       c.define_tag 'fullscreen' do |tag|
@@ -151,7 +149,6 @@ class Extmedia::PageRenderer < ParagraphRenderer
         data[:video].title
       end
     end
-    parse_feature(feature,parser_context)
   end
   
 
@@ -176,7 +173,7 @@ class Extmedia::PageRenderer < ParagraphRenderer
         href_path = options.detail_page_id.to_i > 0 ? SiteNode.get_node_path(options.detail_page_id) : page_path
         
         data = { :video => @video,:videos => videos, :page_path => href_path}
-        feature_output = youtube_gallery_feature(get_feature('youtube_gallery'),data)
+        feature_output = youtube_gallery_feature(data)
         render_paragraph :text => feature_output
       else
         render_paragraph :nothing => true
@@ -206,9 +203,8 @@ class Extmedia::PageRenderer < ParagraphRenderer
   FEATURE
   
 
-  def flickr_set_feature(feature,data)
-    
-    parser_context = FeatureContext.new do |c|
+  def flickr_set_feature(data)
+    webiva_feature('flickr_set') do |c|    
       c.define_tag 'slideshow' do |tag|
         width = tag.attr['width']||460
         height = tag.attr['height']||460
@@ -241,7 +237,6 @@ class Extmedia::PageRenderer < ParagraphRenderer
         tag.locals.gallery.title
       end
     end
-    parse_feature(feature,parser_context)
   end
     
 
@@ -258,7 +253,7 @@ class Extmedia::PageRenderer < ParagraphRenderer
       @galleries = @set.galleries.find(:all,:conditions => 'display=1',:order => 'posted_on DESC')
       if @gallery 
         data = { :gallery => @gallery,:galleries => @galleries, :page_path => page_path}
-        feature_output = flickr_set_feature(get_feature('flickr_set'),data)
+        feature_output = flickr_set_feature(data)
         render_paragraph :text => feature_output
       else
         render_paragraph :nothing => true
@@ -268,8 +263,8 @@ class Extmedia::PageRenderer < ParagraphRenderer
     end
   end
   
-  def youtube_video_feature(feature,data)
-    parser_context = FeatureContext.new do |c|
+  def youtube_video_feature(data)
+    webiva_feature('youtube_video') do |c|
 
       define_youtube_player_tag(c,data)
           
@@ -277,7 +272,6 @@ class Extmedia::PageRenderer < ParagraphRenderer
         data[:video].align || 'center'
       end 
     end
-    parse_feature(feature,parser_context)
   end
   
 
@@ -295,7 +289,7 @@ class Extmedia::PageRenderer < ParagraphRenderer
     
     if !options.video_id.blank?
         data = { :video => options }
-        feature_output = youtube_video_feature(get_feature('youtube_video'),data)
+        feature_output = youtube_video_feature(data)
         render_paragraph :text => feature_output
     else
       render_paragraph :text => 'Configure Paragraph'
@@ -307,10 +301,8 @@ class Extmedia::PageRenderer < ParagraphRenderer
   <cms:links><cms:link/>&nbsp;&nbsp;</cms:links>
  EOF
     
- def social_links_feature(feature,data)
-    
-    parser_context = FeatureContext.new do |c|
-
+ def social_links_feature(data)
+    webiva_feature('social_links') do |c|
       
       c.define_tag 'links' do |tag|
         services = tag.attr['services'] ? tag.attr['services'].explode(',').collect { |svc| svc.trim } : data[:services]
@@ -339,13 +331,12 @@ class Extmedia::PageRenderer < ParagraphRenderer
           "<a href='#{link[1]}#{escaped_page_path}'  target='_blank'  title='#{h link[0]}'><img border='0' src='#{image_path}#{link[2]}' alt='#{h link[0]}' align='absmiddle'/></a>"
       end
     end
-    parse_feature(feature,parser_context)
   end
   
   def share_links
     options = Extmedia::PageController::ShareLinksOptions.new(paragraph.data)
     data = { :services => options.networks, :page => CGI.escape(Configuration.domain_link(page_path))  } 
-    render_paragraph :text => social_links_feature(get_feature('social_links'),data)
+    render_paragraph :text => social_links_feature(data)
   end
 
 end
