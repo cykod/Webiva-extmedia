@@ -65,10 +65,9 @@ class Extmedia::PageRenderer < ParagraphRenderer
           <div id='video_player_#{paragraph.id}' style='width:#{width}px;height:#{height}px;'>#{img_src}</div>
           <script type="text/javascript">
             function writeVideoPlayer#{paragraph.id}() {
-              var so = new SWFObject("http://www.youtube.com/v/#{data[:video].video_id}&rel=0&autoplay=#{autoplay}","youtubeVideo","#{width}","#{height}",8,"#{color}");
-              so.addParam("wmode", "transparent");
-              so.addVariable("playerMode","embedded");
-              so.write("video_player_#{paragraph.id}");
+              swfobject.embedSWF("http://www.youtube.com/v/#{data[:video].video_id}&rel=0&autoplay=#{autoplay}","video_player_#{paragraph.id}","#{width}","#{height}","8","",
+                                  { playerMode: "embedded" },
+                                  { wmode: "transparent", bgcolor: "#{color}" });
              }
              #{"writeVideoPlayer#{paragraph.id}();" if tag.attr['no_thumb'] || !thumbnail_file}
           </script>
