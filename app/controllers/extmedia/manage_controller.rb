@@ -2,7 +2,7 @@
 
 class Extmedia::ManageController < ModuleController
 
-  permit 'extmedia_edit or extmedia_create'
+  permit 'extmedia_edit'
 
   component_info :extmedia
   
