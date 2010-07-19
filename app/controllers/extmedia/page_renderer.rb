@@ -135,6 +135,10 @@ class Extmedia::PageRenderer < ParagraphRenderer
       c.define_tag 'video:title' do |tag|
         tag.locals.video.title
       end
+
+      c.value_tag 'video:video_url' do |t|
+        t.locals.video.video_link
+      end
       
       c.define_tag 'video:description' do |tag|
         tag.locals.video.description
@@ -230,6 +234,10 @@ class Extmedia::PageRenderer < ParagraphRenderer
         width = "width='#{tag.attr['width']}'" if tag.attr['width']
         height  = "height='#{tag.attr['height']}'" if tag.attr['height']
         "<a href='#{data[:page_path]}?gallery_id=#{tag.locals.gallery.id}'><img #{width} #{height} src='#{tag.locals.gallery.image_url}' border='0' /></a>"
+      end
+
+      c.value_tag 'gallery:gallery_id' do |t|
+        t.locals.gallery.gallery_id
       end
 
       c.define_tag 'gallery:title' do |tag|
