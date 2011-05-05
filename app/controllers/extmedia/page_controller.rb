@@ -61,7 +61,7 @@ class Extmedia::PageController < ParagraphController
     
     boolean_options :autoplay
     
-    validates_format_of :video_link, :with => /^http\:\/\/(www|)\.youtube\.com\/watch\?v\=(.*)$/i,
+    validates_format_of :video_link, :with => ExtmediaYoutubeGalleryVideo.video_regexp,
                           :message => 'is not a valid youtube link'
       
     def youtube_rss(vid)
@@ -70,7 +70,7 @@ class Extmedia::PageController < ParagraphController
     
 
     def validate
-      vid_id = self.video_link.to_s.gsub(/^http\:\/\/(www|)\.youtube\.com\/watch\?v\=(.*)$/i,'\2').to_s.strip
+      vid_id = self.video_link.to_s.gsub(ExtmediaYoutubeGalleryVideo.video_regexp,'\5').to_s.strip
       vid_url = URI.parse(youtube_rss(vid_id))
       res = Net::HTTP.get(vid_url)
       doc =  Hpricot::XML(res)
